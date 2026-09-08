@@ -12,6 +12,9 @@ function App() {
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   }
+  function resetuj(){
+    setObejrzane([]);
+  }
 
   const wyswietlaneFilmy = movies.filter((movie) => {
     if (filtr === "obejrzane") {
@@ -39,6 +42,8 @@ function App() {
         <button onClick={() => setFiltr("obejrzane")} id="wybor">Obejrzane</button>
 
         <button onClick={() => setFiltr("nieobejrzane")} id="wybor">Nieobejrzane</button>
+
+        <button onClick={()=>resetuj()} id="wybor">Wyczyść wszystkie</button>
       </nav>
       <main>
         {wyswietlaneFilmy.length > 0 ? (
@@ -48,7 +53,6 @@ function App() {
               title={movie.title}
               year={movie.year}
               genre={movie.genre}
-              id={movie.id}
               czyObejrzane={obejrzane.includes(movie.id)}
               oznaczJakoObejrzany={() => oznaczJakoObejrzany(movie.id)}
             />
