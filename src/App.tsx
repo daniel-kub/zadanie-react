@@ -34,16 +34,16 @@ function App() {
       </header>
 
       <nav>
-        <button onClick={() => setFiltr("wszystkie")}>Wszystkie</button>
+        <button onClick={() => setFiltr("wszystkie")} id="wybor">Wszystkie</button>
 
-        <button onClick={() => setFiltr("obejrzane")}>Obejrzane</button>
+        <button onClick={() => setFiltr("obejrzane")} id="wybor">Obejrzane</button>
 
-        <button onClick={() => setFiltr("nieobejrzane")}>Nieobejrzane</button>
+        <button onClick={() => setFiltr("nieobejrzane")} id="wybor">Nieobejrzane</button>
       </nav>
       <main>
         {wyswietlaneFilmy.length > 0 ? (
           wyswietlaneFilmy.map((movie) => (
-            <MovieCard
+            <MovieCard 
               key={movie.id}
               title={movie.title}
               year={movie.year}
