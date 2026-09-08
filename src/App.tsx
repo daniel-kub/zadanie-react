@@ -6,14 +6,24 @@ import MovieCard from "./components/MovieCard";
 function App() {
   const [obejrzane, setObejrzane] = useState([]);
   const [filtr, setFiltr] = useState("wszystkie");
+  const [oceny, setOceny] = useState({});
 
   function oznaczJakoObejrzany(id) {
     setObejrzane((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   }
+
+  function ustawOcene(id, ocena) {
+    setOceny((prev) => ({
+      ...prev,
+      [id]: ocena,
+    }));            
+  }
+
   function resetuj(){
     setObejrzane([]);
+    setOceny({});
   }
 
   const wyswietlaneFilmy = movies.filter((movie) => {
@@ -55,6 +65,8 @@ function App() {
               genre={movie.genre}
               czyObejrzane={obejrzane.includes(movie.id)}
               oznaczJakoObejrzany={() => oznaczJakoObejrzany(movie.id)}
+              ocena={oceny[movie.id] || 0}
+              ustawOcene={(ocena) => ustawOcene(movie.id, ocena)}
             />
           ))
         ) : (
