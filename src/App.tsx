@@ -3,30 +3,40 @@ import { useState } from "react";
 import movies from "./data/movies.json";
 import MovieCard from "./components/MovieCard";
 
-function App() {
-  const [obejrzane, setObejrzane] = useState([]);
-  const [filtr, setFiltr] = useState("wszystkie");
-  const [oceny, setOceny] = useState({});
+interface Movie {
+  id: number;
+  title: string;
+  year: number;
+  genre: string;
+}
 
-  function oznaczJakoObejrzany(id) {
+
+type Oceny = Record<number, number>;
+
+function App() {
+  const [obejrzane, setObejrzane] = useState<number[]>([]);
+  const [filtr, setFiltr] = useState<"wszystkie"|"obejrzane"|"nieobejrzane">("wszystkie");
+  const [oceny, setOceny] = useState<Oceny>({});
+
+  function oznaczJakoObejrzany(id: number) {
     setObejrzane((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   }
 
-  function ustawOcene(id, ocena) {
+  function ustawOcene(id: number, ocena: number) {
     setOceny((prev) => ({
       ...prev,
       [id]: ocena,
-    }));            
+    }));
   }
 
-  function resetuj(){
+  function resetuj() {
     setObejrzane([]);
     setOceny({});
   }
 
-  const wyswietlaneFilmy = movies.filter((movie) => {
+  const wyswietlaneFilmy = (movies as Movie[]).filter((movie) => {
     if (filtr === "obejrzane") {
       return obejrzane.includes(movie.id);
     }
@@ -53,12 +63,12 @@ function App() {
 
         <button onClick={() => setFiltr("nieobejrzane")} id="wybor">Nieobejrzane</button>
 
-        <button onClick={()=>resetuj()} id="wybor">Wyczyść wszystkie</button>
+        <button onClick={() => resetuj()} id="wybor">Wyczyść wszystkie</button>
       </nav>
       <main>
         {wyswietlaneFilmy.length > 0 ? (
           wyswietlaneFilmy.map((movie) => (
-            <MovieCard 
+            <MovieCard
               key={movie.id}
               title={movie.title}
               year={movie.year}
@@ -66,7 +76,7 @@ function App() {
               czyObejrzane={obejrzane.includes(movie.id)}
               oznaczJakoObejrzany={() => oznaczJakoObejrzany(movie.id)}
               ocena={oceny[movie.id] || 0}
-              ustawOcene={(ocena) => ustawOcene(movie.id, ocena)}
+              ustawOcene={(ocena: number) => ustawOcene(movie.id, ocena)}
             />
           ))
         ) : (

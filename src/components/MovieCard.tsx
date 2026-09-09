@@ -1,4 +1,14 @@
-function MovieCard(props) {
+interface MovieCardProps {
+  title: string;
+  year: number;
+  genre: string;
+  czyObejrzane: boolean;
+  oznaczJakoObejrzany: () => void;
+  ocena: number;
+  ustawOcene: (ocena: number) => void;
+}
+
+function MovieCard(props: MovieCardProps) {
   return (
     <div id="box">
       <h2>
@@ -16,7 +26,7 @@ function MovieCard(props) {
             id="ocena"
             key={numer}
             onClick={() => props.ustawOcene(numer)}
-            style={{color: numer === props.ocena ? "gold" : "black"}}
+            style={{ color: numer === props.ocena ? "gold" : "black" }}
           >
             {numer}
           </span>
