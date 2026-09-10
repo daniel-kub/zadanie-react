@@ -128,7 +128,7 @@ function App() {
           <div>
             <label>Typ</label>
             {fields.map((field, index) => (
-              <div key={field.id} style={{ display: "flex", gap: "0.5rem", marginBottom: "0.25rem" }}>
+              <div key={field.id}>
                 <input
                   type="text"
                   {...register(`typ.${index}.value` as const, {
