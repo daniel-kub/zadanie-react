@@ -1,7 +1,7 @@
 interface MovieCardProps {
   title: string;
   year: number;
-  genre: string;
+  genre: string[];
   czyObejrzane: boolean;
   oznaczJakoObejrzany: () => void;
   ocena: number;
@@ -12,7 +12,7 @@ function MovieCard(props: MovieCardProps) {
   return (
     <div id="box">
       <h2>
-        Tytuł: {props.title}, Rok: {props.year}, Gatunek: {props.genre}
+        Tytuł: {props.title}, Rok: {props.year}, Gatunek: {props.genre.join(", ")}
       </h2>
 
       <button onClick={props.oznaczJakoObejrzany}>
